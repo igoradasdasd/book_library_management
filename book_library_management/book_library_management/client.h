@@ -14,7 +14,7 @@ public:
 	client(std::string f_n, std::string s_n, std::string ad) :
 		first_name(f_n), second_name(s_n), address(ad), id(++count_of_client_id){};
 	client() = delete;
-	~client();
+	~client() = default;;
 
 private:
 	std::string first_name;		// имя
@@ -24,5 +24,5 @@ private:
 	int id;						// ИД клиента
 };
 
-int client::count_of_client_id = 0;
+
 
