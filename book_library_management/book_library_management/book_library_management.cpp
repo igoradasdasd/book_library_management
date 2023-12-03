@@ -7,14 +7,14 @@
 #include <vector>
 #include "function.h"
 std::vector<book> list_of_books;
-std::vector<book> list_of_clients;
+std::vector<client> list_of_clients;
 
 int main()
 {
     while (true)
     {
         main_menu();		// вывод оcновного меню
-        select_action(list_of_books);	// выбор действия
+        select_action(list_of_books, list_of_clients);	// выбор действия
     }
     
 }

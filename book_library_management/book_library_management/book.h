@@ -13,6 +13,8 @@ public:
 	string give_title() { return title; };
 	string give_author() { return author; };
 	int give_id() { return id;};
+	void set_status(condition cond) { status = cond; }
+	condition get_status() { return status; }
 
 	book(std::string t, std::string a) :
 		title(t), author(a), status(IN_STOCK), id(++book_id)
