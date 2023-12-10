@@ -67,7 +67,7 @@ void select_action(std::vector<book> & books, std::vector<client> & clients)
 				std::cout << "List of clients is empty" << std::endl;
 				break;
 			}
-//			get_book(books, clients);
+			get_book(books, clients);
 			break;
 		default:
 			cout << " нет такого действия" << endl;
@@ -88,7 +88,7 @@ void give_book(std::vector<book>& books, std::vector<client>& clients)
 	else
 		if ((*book_iterator).get_status() == ON_HAND)
 		{
-			std::cout << "The book is in hands" << std::endl;	// книга на ркуах
+			std::cout << "The book is in hands" << std::endl;	// книга на руках
 		}
 		else
 			{
@@ -98,12 +98,37 @@ void give_book(std::vector<book>& books, std::vector<client>& clients)
 			else
 				{
 					(*book_iterator).set_status(ON_HAND);
-					(*client_iterator).give_book((*book_iterator).give_id());
+					(*client_iterator).get_book((*book_iterator).give_id());
 					std::cout << "The book has been issued " << std::endl; // книга успешно выдана
 				} 
 	}
+}
 
+// возвращение книги
+void get_book(std::vector<book>& books, std::vector<client>& clients)
+{
+	decltype(books.end()) book_iterator;
+	decltype(clients.end()) client_iterator;
 
+	book_iterator = find_book(books);
+	if (book_iterator == books.end())
+		std::cout << "There is no such book " << std::endl;	// такой книги нет
+	else
+		if ((*book_iterator).get_status() == IN_STOCK)
+		{
+			std::cout << "Such a book was not issued" << std::endl;	// такая книга не выдавалась
+		}
+		else
+		{
+			client_iterator = find_client(clients);
+			if (client_iterator == clients.end())
+				std::cout << "There is no such client " << std::endl; // такого клиента нет
+			else
+			{
+				(*book_iterator).set_status(IN_STOCK);
+				(*client_iterator).get_book((*book_iterator).give_id());
+			}
+		}
 }
 
 void add_book(std::vector<book>& books)
