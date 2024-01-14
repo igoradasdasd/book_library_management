@@ -14,14 +14,14 @@ void main_menu(void)
 	std::cout << std::endl;
 	cout << "select action: 0 - add the book,  1 - add the client " << endl <<
 		"2 - delete the book, 3 - delete the client" << endl <<
-		"4 - give the book to the client, 5 - get a book from a client" << endl;
+		"4 - give the book to the client, 5 - get a book from a client, 6 - end work" << endl;
 
 }
 
-void select_action(std::vector<book> & books, std::vector<client> & clients)
+void select_action(std::vector<book> & books, std::vector<client> & clients, bool &rep)
 {
 	int action;
-	while (cin >> action)
+	cin >> action;
 	{
 		switch (action)
 		{
@@ -69,11 +69,14 @@ void select_action(std::vector<book> & books, std::vector<client> & clients)
 			}
 			get_book(books, clients);
 			break;
+		case 6:
+			rep = false;
+			break;
 		default:
 			cout << " нет такого действия" << endl;
 			break;
 		}
-		main_menu();
+//		main_menu();
 	}
 }
 // выдача книги
@@ -86,7 +89,7 @@ void give_book(std::vector<book>& books, std::vector<client>& clients)
 	if (book_iterator == books.end())
 		std::cout << "There is no such book " << std::endl;	// такой книги нет
 	else
-		if ((*book_iterator).get_status() == ON_HAND)
+		if ((*book_iterator).give_status() == ON_HAND)
 		{
 			std::cout << "The book is in hands" << std::endl;	// книга на руках
 		}
@@ -114,7 +117,7 @@ void get_book(std::vector<book>& books, std::vector<client>& clients)
 	if (book_iterator == books.end())
 		std::cout << "There is no such book " << std::endl;	// такой книги нет
 	else
-		if ((*book_iterator).get_status() == IN_STOCK)
+		if ((*book_iterator).give_status() == IN_STOCK)
 		{
 			std::cout << "Such a book was not issued" << std::endl;	// такая книга не выдавалась
 		}
@@ -213,7 +216,7 @@ std::vector<book>::iterator find_book(std::vector<book>& books)
 	case 3:
 		std::cout << "Enter id of the book ";
 		std::cin >> id;
-		iterator = find_if(books.begin(), books.end(), [=](book& b) {
+		iterator = find_if(books.begin(), books.end(), [id](book& b) {
 			return (id == b.give_id());
 			});
 		break;

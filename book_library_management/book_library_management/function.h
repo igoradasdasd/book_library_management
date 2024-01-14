@@ -5,7 +5,7 @@
 
 void main_menu(void);		// вывод соновного меню
 
-void select_action(std::vector<book> & , std::vector<client> &);	// выбор действия
+void select_action(std::vector<book>&, std::vector<client>&, bool &);	// выбор действия
 
 void add_book(std::vector<book> & books);
 

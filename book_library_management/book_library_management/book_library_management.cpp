@@ -6,17 +6,29 @@
 #include "client.h"
 #include <vector>
 #include "function.h"
+#include <fstream>
 std::vector<book> list_of_books;
 std::vector<client> list_of_clients;
 
 int main()
-{
-    while (true)
+{   
+    bool repeat = true;
+    std::ifstream file_in("books.txt");
+    std::istream_iterator<book> in_iter(file_in), eof;
+    std::vector<book> list_of_books{ in_iter, eof };
+
+    std::ofstream file_out("books.txt");
+    std::ostream_iterator<book> out(file_out, "\n");
+
+    while (repeat)
     {
         main_menu();		// вывод оcновного меню
-        select_action(list_of_books, list_of_clients);	// выбор действия
+        select_action(list_of_books, list_of_clients, repeat);	// выбор действия
+
     }
-    
+
+    for (auto & a : list_of_books)
+        file_out << a << std::endl;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
